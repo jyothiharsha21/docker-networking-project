@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Management System</title>
+
+    <style>
+        body{
+            font-family: Arial;
+            background:#f2f2f2;
+            margin:40px;
+        }
+
+        h1{
+            color:#0077cc;
+        }
+
+        button{
+            padding:10px 20px;
+            font-size:16px;
+            cursor:pointer;
+        }
+
+        table{
+            margin-top:20px;
+            border-collapse:collapse;
+            width:60%;
+        }
+
+        th,td{
+            border:1px solid black;
+            padding:10px;
+            text-align:center;
+        }
+
+        th{
+            background:#0077cc;
+            color:white;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<h1>Employee Management System</h1>
+
+<button onclick="loadEmployees()">
+    Load Employees
+</button>
+
+<table>
+
+<thead>
+
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Department</th>
+</tr>
+
+</thead>
+
+<tbody id="employees">
+
+</tbody>
+
+</table>
+
+<script>
+
+async function loadEmployees(){
+
+    const response = await fetch("/api/employees");
+
+    const data = await response.json();
+
+    let rows="";
+
+    data.forEach(emp=>{
+
+        rows += `
+        <tr>
+            <td>${emp.id}</td>
+            <td>${emp.name}</td>
+            <td>${emp.department}</td>
+        </tr>
+        `;
+
+    });
+
+    document.getElementById("employees").innerHTML = rows;
+
+}
+
+</script>
+
+</body>
+</html>
